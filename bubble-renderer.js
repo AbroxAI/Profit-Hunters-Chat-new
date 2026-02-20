@@ -1,4 +1,4 @@
-// bubble-renderer.js
+// bubble-renderer.js (Telegram-style fixed tails)
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("tg-comments-container");
   if (!container) {
@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /**
    * Create a Telegram-style chat bubble
+   * @param {Object} options
    */
   function createBubble({ id, name, avatar, text, time, isOwn, replyToText, image }) {
     const bubble = document.createElement("div");
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     content.className = "tg-bubble-content";
 
     // Sender name
-    if (name) {
+    if (name && !isOwn) { // show name only for incoming
       const sender = document.createElement("div");
       sender.className = "tg-bubble-sender";
       sender.textContent = name;
@@ -55,34 +56,45 @@ document.addEventListener("DOMContentLoaded", () => {
     textEl.textContent = text;
     content.appendChild(textEl);
 
-    // Timestamp meta
+    // Timestamp
     const meta = document.createElement("div");
     meta.className = "tg-bubble-meta";
     meta.textContent = new Date(time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     content.appendChild(meta);
 
-    // Tail spacing for Telegram-style
+    // Tail container
     const tail = document.createElement("div");
     tail.className = isOwn ? "tg-tail-outgoing" : "tg-tail-incoming";
-    bubble.appendChild(tail);
 
-    bubble.appendChild(avatarEl);
-    bubble.appendChild(content);
+    // Assemble bubble
+    if (isOwn) {
+      bubble.appendChild(content);
+      bubble.appendChild(avatarEl);
+      bubble.appendChild(tail);
+    } else {
+      bubble.appendChild(avatarEl);
+      bubble.appendChild(content);
+      bubble.appendChild(tail);
+    }
+
     return bubble;
   }
 
+  /** Append message */
   function appendMessage(message) {
     const bubble = createBubble(message);
     container.appendChild(bubble);
     container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
   }
 
+  /** Clear all messages */
   function clearMessages() {
     container.innerHTML = "";
   }
 
+  // Expose globally
   window.TGRenderer = window.TGRenderer || {};
-  window.TGRenderer.appendMessage = appendMessage;
   window.TGRenderer.createBubble = createBubble;
+  window.TGRenderer.appendMessage = appendMessage;
   window.TGRenderer.clearMessages = clearMessages;
 });
