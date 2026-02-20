@@ -1,11 +1,6 @@
-// identity-personas.js
+// identity-personas-connected-v13.js
 // ============================================================
 // ELITE HUMAN-LIKE PERSONA ENGINE v2 — CONNECTED TO REALISM v13
-// - mixed avatar pool (local + remote)
-// - unique avatar selection with persistence
-// - unique name generation, de-duplicated
-// - persona pool builder (chunked fill)
-// - connected to v13 REGIONAL_SLANG for realistic comments
 // ============================================================
 
 (function(){
@@ -54,21 +49,7 @@
       "https://i.pravatar.cc/300?img=3","https://i.pravatar.cc/300?img=5","https://i.pravatar.cc/300?img=7",
       "https://i.pravatar.cc/300?img=9","https://i.pravatar.cc/300?img=11","https://i.pravatar.cc/300?img=13",
       "https://i.pravatar.cc/300?img=15","https://i.pravatar.cc/300?img=17","https://i.pravatar.cc/300?img=19",
-      "https://i.pravatar.cc/300?img=21",
-      "https://randomuser.me/api/portraits/men/21.jpg","https://randomuser.me/api/portraits/women/22.jpg",
-      "https://randomuser.me/api/portraits/men/30.jpg","https://randomuser.me/api/portraits/women/31.jpg",
-      "https://picsum.photos/seed/alpha/300/300","https://picsum.photos/seed/bravo/300/300",
-      "https://picsum.photos/seed/charlie/300/300","https://picsum.photos/seed/delta/300/300",
-      "https://picsum.photos/seed/echo/300/300","https://picsum.photos/seed/foxtrot/300/300",
-      "https://picsum.photos/seed/golf/300/300",
-      "https://robohash.org/seed_1.png","https://robohash.org/seed_2.png","https://api.multiavatar.com/seed_one.png",
-      "https://api.multiavatar.com/seed_two.png","https://api.dicebear.com/7.x/adventurer/svg?seed=ari",
-      "https://api.dicebear.com/7.x/bottts/svg?seed=zek",
-      "https://ui-avatars.com/api/?name=AA&background=random","https://ui-avatars.com/api/?name=BB&background=random",
-      "https://ui-avatars.com/api/?name=CC&background=random",
-      "https://source.unsplash.com/collection/365219/300x300?sig=1","https://source.unsplash.com/collection/365219/300x300?sig=2",
-      "https://source.unsplash.com/collection/365219/300x300?sig=3","https://source.unsplash.com/collection/365219/300x300?sig=4",
-      "https://picsum.photos/seed/zulu/300/300","https://picsum.photos/seed/yankee/300/300","https://picsum.photos/seed/xray/300/300"
+      "https://i.pravatar.cc/300?img=21"
     );
     return pool;
   })();
@@ -103,10 +84,7 @@
         return candidate;
       }
     }
-    const initials = encodeURIComponent((name||"U").split(" ").map(s=>s[0]||"").slice(0,2).join("") || "U");
-    const ua = `https://ui-avatars.com/api/?name=${initials}&background=random&size=256&v=${Date.now()}`;
-    UsedAvatarURLs.add(ua);
-    return ua;
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent((name||"U").slice(0,2))}&background=random&size=256&v=${Date.now()}`;
   }
 
   // ----------------- Name generator -----------------
@@ -139,7 +117,6 @@
     return candidate;
   }
 
-  // ----------------- Avatar builder -----------------
   function buildUniqueAvatar(name, gender){
     if(Math.random() < 0.4){
       const initials = encodeURIComponent((name||"U").split(" ").map(s=>s[0]||"").slice(0,2).join(""));
@@ -173,38 +150,9 @@
     });
   }
 
-  (function fillRemaining(){
-    const batch = 300;
-    function batchFill(){
-      const toDo = Math.min(batch, TOTAL_PERSONAS - SyntheticPool.length);
-      for(let i=0;i<toDo;i++){
-        const gender = maybe(0.5) ? "male" : "female";
-        const name = buildUniqueName(gender);
-        SyntheticPool.push({
-          name,
-          avatar: buildUniqueAvatar(name, gender),
-          isAdmin: false,
-          gender,
-          country: random(COUNTRIES),
-          region: COUNTRY_GROUPS[random(COUNTRIES)] || "western",
-          personality: random(["hype","analytical","casual","quiet","aggressive"]),
-          tone: random(["short","normal","long"]),
-          timezoneOffset: rand(24) - 12,
-          rhythm: 0.5 + Math.random()*1.8,
-          lastSeen: Date.now() - rand(6000000),
-          memory: [],
-          sentiment: random(["bullish","neutral","bearish"])
-        });
-      }
-      if(SyntheticPool.length < TOTAL_PERSONAS) setTimeout(batchFill, 120);
-      else console.log("identity-personas: SyntheticPool fully built:", SyntheticPool.length);
-    }
-    setTimeout(batchFill, 120);
-  })();
-
-  // ----------------- Human comment engine -----------------
+  // ----------------- Human comment engine (connected to realism-v13) -----------------
   function generateHumanComment(persona, baseText, targetName=null){
-    const SLANG = window.REGIONAL_SLANG || {}; // connected to realism-v13
+    const SLANG = window.REGIONAL_SLANG || {};
     let text = typeof baseText === "string" ? baseText : "Nice!";
     if(Math.random() < 0.5){
       const slangCount = Math.floor(Math.random()*2)+1;
@@ -224,7 +172,6 @@
     return text;
   }
 
-  // ----------------- Last seen -----------------
   function getLastSeenStatus(persona){
     const diff = Date.now() - (persona && persona.lastSeen ? persona.lastSeen : Date.now());
     if(diff < 300000) return "online";
@@ -233,11 +180,11 @@
     return "last seen long ago";
   }
 
-  // ----------------- Exports -----------------
   function getRandomPersona(){ 
     return SyntheticPool.length ? SyntheticPool[Math.floor(Math.random()*SyntheticPool.length)] : { name:"Guest", avatar:"https://ui-avatars.com/api/?name=G" }; 
   }
 
+  // ----------------- Exports -----------------
   window.identity = window.identity || {};
   Object.assign(window.identity, {
     Admin,
@@ -248,5 +195,6 @@
     UsedAvatarURLs
   });
 
-  console.log("identity-personas initialized — pool size:", SyntheticPool.length);
+  console.log("identity-personas connected to realism-v13 — pool size:", SyntheticPool.length);
+
 })();
