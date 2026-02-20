@@ -1,10 +1,4 @@
-// realism-engine-v13-abrox-multi-persona-typos-typing-final.js
-// ============================================================
-// ULTRA REALITY MODE V13 — MULTI-PERSONA, HUMAN-LIKE COMMUNITY
-// FULLY EXPANDED POOLS + REAL ABROX WINS + MICRO-DEBATES
-// HUMAN TYPO MISTAKES + TYPING DELAYS + PER-PERSONA SPEED + SESSION MOOD + BULL/BEAR
-// ============================================================
-
+// realism-engine-v13-abrox-multi-persona-typing-queue-merged.js
 (function(){
 
   const CONFIG = {
@@ -51,9 +45,6 @@
     return String(h);
   }
 
-  // =========================
-  // POOLS AND DATA
-  // =========================
   const ASSETS = ["EUR/USD","BTC/USD","ETH/USD","USD/JPY","GBP/USD","AUD/USD","US30","NAS100",
     "GOLD","SILVER","NZD/USD","USD/CAD","EUR/JPY","SPX500","DOGE/USD",
     "XAU/USD","XAG/USD","GBP/JPY","EUR/GBP","AUD/JPY","USD/CHF","EUR/AUD",
@@ -88,8 +79,8 @@
     "Perfect timing","Sharp entry","Sniper entry","This is why patience pays","Market respected that level",
     "Admin nailed it","Signal clean","That candle wicked","We eating today","Team green 🟢","Back in profit","Locked in",
     "Anyone else took this?","Did you hold full TP?","TP?","SL?","Risk %?","RR ratio?","How many pips?","Was that news driven?",
-    "Manual or signal?","Spot or futures?","Scalp or swing?","Breakout or pullback entry?","Volume looked strong?","Late entry possible?",
-    "Re-entry coming?","Next target where?","Session trade or overnight?","Who caught the wick?","Missed it 😩","FOMO hit hard",
+    "Manual or signal?","Spot or futures?","Scalp or swing?","Breakout or pullback entry?","Volume looked strong","Late entry possible?",
+    "Re-entry coming?","Next target where?","Who caught the wick?","Missed it 😩","FOMO hit hard",
     "Closed too early 😅","Held too long ngl","Partial profit better than loss","Discipline paid off","Patience wins again",
     "Almost panicked there","Market playing games today","That fake breakout though","Liquidity grab was obvious",
     "Smart money move","Retail got trapped","Spread was crazy","Slippage was wild","News spike madness","Consistency > luck"
@@ -105,7 +96,6 @@
   let UNREAD_COUNT = 0;
   let timer = null;
 
-  // ---------- Online Count ----------
   function simulateOnline(){
     if(!window.MEMBER_COUNT) window.MEMBER_COUNT=2500;
     if(!window.ONLINE_COUNT) window.ONLINE_COUNT=CONFIG.onlineBase;
@@ -121,38 +111,64 @@
   const IDENTITY = window.identity || {};
   window.REGIONAL_SLANG = REGIONAL_SLANG;
 
+  // ---------- HEADER TYPING QUEUE ----------
+  const TYPING_QUEUE = [];
+  let typingActive = false;
+
+  function enqueueTyping(persona){
+    TYPING_QUEUE.push(persona);
+    processTypingQueue();
+  }
+
+  function processTypingQueue(){
+    if(typingActive) return;
+    if(TYPING_QUEUE.length === 0) return;
+
+    typingActive = true;
+    const batch = TYPING_QUEUE.splice(0, 3); // up to 3 personas
+    const names = batch.map(p => p.name);
+
+    if(window.TGRenderer?.showTypingInHeader){
+      window.TGRenderer.showTypingInHeader(names);
+    }
+
+    const maxDuration = Math.max(...batch.map(p => p.typingSpeed || 1200));
+    setTimeout(()=>{
+      typingActive = false;
+      processTypingQueue();
+    }, maxDuration + 200);
+  }
+
   function getPersona(){
     if(IDENTITY.getRandomPersona) return IDENTITY.getRandomPersona();
     const name = "User"+rand(9999);
     const regions = Object.keys(REGIONAL_SLANG);
     const region = random(regions);
     const sentiment = maybe(0.6) ? "bullish" : "bearish";
-    // Assign per-persona typing speed
     const typingSpeed = CONFIG.typingDelayMin + rand(CONFIG.typingDelayMax-CONFIG.typingDelayMin);
     return { name, region, avatar:`assets/avatars/avatar${rand(300)}.jpg`, sentiment, typingSpeed };
   }
 
-  // ---------- Human-like Typos ----------
   function humanizeText(text){
     if(!maybe(CONFIG.typoChance)) return text;
     const typoType = rand(4);
     const idx = rand(text.length);
     switch(typoType){
-      case 0: // swap letters
+      case 0:
         if(idx < text.length-1){
           const chars = text.split("");
           [chars[idx], chars[idx+1]] = [chars[idx+1], chars[idx]];
           text = chars.join("");
         }
         break;
-      case 1: // remove letter
+      case 1:
         text = text.slice(0,idx) + text.slice(idx+1);
         break;
-      case 2: // duplicate letter
+      case 2:
         const c = text[idx]||"";
         text = text.slice(0,idx)+c+c+text.slice(idx+1);
         break;
-      case 3: // insert random letter
+      case 3:
         const letters = "abcdefghijklmnopqrstuvwxyz";
         text = text.slice(0,idx)+letters[rand(letters.length)]+text.slice(idx);
         break;
@@ -210,12 +226,15 @@
     while(isDuplicate(text) && tries<50){ text = composeMessage(persona) + " " + rand(999); tries++; }
     mark(text);
     if(!persona.avatar) persona.avatar = CONFIG.avatarFallback;
+
+    // enqueue header typing
+    enqueueTyping(persona);
+
     return { persona, text, timestamp:new Date(Date.now() - rand(4000000)), id:safeId() };
   }
 
   function ensurePool(min){ while(POOL.length < min) POOL.push(generate()); }
 
-  // ---------- Post with typing delay ----------
   function post(count=1){
     ensurePool(CONFIG.minPoolSize);
     for(let i=0;i<count;i++){
@@ -237,10 +256,13 @@
     for(let i=0;i<replies;i++){
       const reply = generate();
       const delay = reply.persona.typingSpeed || (CONFIG.typingDelayMin + rand(CONFIG.typingDelayMax-CONFIG.typingDelayMin));
+
       setTimeout(()=>{
         if(window.TGRenderer?.appendMessage) window.TGRenderer.appendMessage(reply.persona,reply.text,{ timestamp:new Date(), type:"incoming", replyToText:baseText });
+
         if(maybe(CONFIG.multiPersonaChainChance)){
           const chainReply = generate();
+          const chainDelay = chainReply.persona.typingSpeed || 1200;
           setTimeout(()=>{
             if(window.TGRenderer?.appendMessage) window.TGRenderer.appendMessage(chainReply.persona,chainReply.text,{ timestamp:new Date(), type:"incoming", replyToText:baseText });
           }, 400 + rand(1000));
@@ -271,6 +293,6 @@
   function wait(){ if(window.TGRenderer?.appendMessage) start(); else setTimeout(wait,300); }
   wait();
   window.addEventListener("beforeunload",()=>{ timer && clearTimeout(timer); });
-  console.log("realism-engine-v13 ABROX BOT MULTI-PERSONA CHAINS + TYPO + PER-PERSONA TYPING loaded");
+  console.log("realism-engine-v13 ABROX BOT MULTI-PERSONA CHAINS + TYPO + HEADER TYPING QUEUE loaded");
 
 })();
