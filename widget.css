@@ -1,4 +1,5 @@
-/* widget.css (final) */
+/* widget.css (Telegram-style tails integrated) */
+
 /* variables */
 :root {
   --tg-bg-main: #0e1621;
@@ -179,30 +180,6 @@ html, body {
 .tg-bubble.outgoing .tg-bubble-content {
   background: #2b5278;
 }
-.tg-bubble.incoming .tg-bubble-content:before {
-  content: "";
-  position: absolute;
-  left: -6px;
-  top: 10px;
-  width: 0;
-  height: 0;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-right: 8px solid #182533;
-  transform: translateX(-6px);
-}
-.tg-bubble.outgoing .tg-bubble-content:before {
-  content: "";
-  position: absolute;
-  right: -6px;
-  top: 10px;
-  width: 0;
-  height: 0;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-left: 8px solid #2b5278;
-  transform: translateX(6px);
-}
 .tg-bubble-sender {
   font-size: 13px;
   font-weight: 600;
@@ -226,6 +203,28 @@ html, body {
   border-radius: 12px;
   margin-bottom: 8px;
   object-fit: cover;
+}
+
+/* Telegram-style bubble tails */
+.tg-tail-incoming {
+  position: absolute;
+  left: -6px;
+  top: 12px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #182533;
+}
+.tg-tail-outgoing {
+  position: absolute;
+  right: -6px;
+  top: 12px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid #2b5278;
 }
 
 /* reply preview */
