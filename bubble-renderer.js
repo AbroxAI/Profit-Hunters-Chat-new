@@ -1,4 +1,4 @@
-// bubble-renderer.js (Telegram-style fix)
+// bubble-renderer.js
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("tg-comments-container");
   if (!container) {
@@ -8,15 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /**
    * Create a Telegram-style chat bubble
-   * @param {Object} options
-   * @param {string} options.id - unique message id
-   * @param {string} options.name - sender name
-   * @param {string} options.avatar - avatar URL
-   * @param {string} options.text - message text
-   * @param {string} options.time - ISO timestamp
-   * @param {boolean} options.isOwn - true if outgoing
-   * @param {string} options.replyToText - optional reply preview text
-   * @param {string} options.image - optional image URL
    */
   function createBubble({ id, name, avatar, text, time, isOwn, replyToText, image }) {
     const bubble = document.createElement("div");
@@ -27,14 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const avatarEl = document.createElement("img");
     avatarEl.className = "tg-bubble-avatar";
     avatarEl.src = avatar || "assets/default-avatar.png";
-    avatarEl.alt = name;
+    avatarEl.alt = name || "User";
 
     // Bubble content
     const content = document.createElement("div");
     content.className = "tg-bubble-content";
 
     // Sender name
-    if (name && !isOwn) { // only show name for incoming
+    if (name) {
       const sender = document.createElement("div");
       sender.className = "tg-bubble-sender";
       sender.textContent = name;
@@ -67,30 +58,29 @@ document.addEventListener("DOMContentLoaded", () => {
     // Timestamp meta
     const meta = document.createElement("div");
     meta.className = "tg-bubble-meta";
-    const timeObj = new Date(time);
-    meta.textContent = timeObj.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    meta.textContent = new Date(time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     content.appendChild(meta);
 
-    // Append avatar & content
+    // Tail spacing for Telegram-style
+    const tail = document.createElement("div");
+    tail.className = isOwn ? "tg-tail-outgoing" : "tg-tail-incoming";
+    bubble.appendChild(tail);
+
     bubble.appendChild(avatarEl);
     bubble.appendChild(content);
-
     return bubble;
   }
 
-  /** Append a message to the container */
   function appendMessage(message) {
     const bubble = createBubble(message);
     container.appendChild(bubble);
     container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
   }
 
-  /** Clear all messages */
   function clearMessages() {
     container.innerHTML = "";
   }
 
-  // Expose globally for interactions.js / app.js
   window.TGRenderer = window.TGRenderer || {};
   window.TGRenderer.appendMessage = appendMessage;
   window.TGRenderer.createBubble = createBubble;
