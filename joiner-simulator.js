@@ -1,4 +1,4 @@
-// joiner-simulator-fixed-patched-v4.js
+// ===================== v4 Joiner Simulator =====================
 (function(){
   const LS_KEY = "abrox_joiner_state_v1_v2";
   const DEFAULTS = {
@@ -15,9 +15,10 @@
   };
 
   const cfg = Object.assign({}, DEFAULTS, window.JOINER_CONFIG || {});
-  let running=false,_timer=null;
-  const usedJoinNames=new Set();
-  let preGenPool=[];
+  let running = false;
+  let _timer = null;
+  const usedJoinNames = new Set();
+  let preGenPool = [];
 
   function randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
   function safeMeta(){return document.getElementById("tg-meta-line");}
@@ -40,7 +41,7 @@
   function preGenerate(count){preGenPool=preGenPool||[];const toCreate=Math.max(0,count-preGenPool.length);for(let i=0;i<toCreate;i++) preGenPool.push(createJoinerFromIdentity());return preGenPool.length;}
   function nextJoiner(){if(preGenPool&&preGenPool.length)return preGenPool.shift();return createJoinerFromIdentity();}
 
-  // ---------- Welcome + emojis + tips ----------
+  // ---------- Expanded welcome texts + emojis + random tips ----------
   function randomWelcomeText(persona){
     const baseVariants=[
       "Hi everyone! 👋","Hello! Glad to join.","Hey — excited to learn and trade with you all.",
@@ -80,21 +81,16 @@
 
   function postRandomFact(joiner){
     const fact=tradingFacts[randInt(0,tradingFacts.length-1)];
-    setTimeout(()=>{if(window.TGRenderer?.appendMessage) window.TGRenderer.appendMessage(joiner,fact,{timestamp:new Date(),type:"incoming"});},randInt(2000,4000));
-  }
-
-  // ---------- Emoji reactions ----------
-  const reactionEmojis=["👍","🎉","🔥","💯","💎","👏","✨","🚀","🤝","💡"];
-  function postEmojiReactions(joiner){
-    const count=randInt(1,2);
     setTimeout(()=>{
-      for(let i=0;i<count;i++){
-        if(window.TGRenderer?.appendMessage)
-          window.TGRenderer.appendMessage(joiner,reactionEmojis[randInt(0,reactionEmojis.length-1)],{timestamp:new Date(),type:"reaction"});
+      if(window.realism?.start){ 
+        // inject fact via realism engine
+        const msg = { persona: joiner, text: fact, timestamp:new Date(), id:"fact_"+Date.now() };
+        window.TGRenderer?.appendMessage(msg.persona,msg.text,{ timestamp:msg.timestamp,type:"incoming",id:msg.id });
       }
-    },randInt(3000,6000));
+    },randInt(2000,4000));
   }
 
+  // ---------- sticker + bubble rendering remains intact ----------
   function createJoinStickerElement(joiners){
     const container=document.createElement("div");
     container.className="tg-join-sticker";
@@ -167,18 +163,24 @@
         setTimeout(()=>{
           postWelcomeAsBubbles(p,{timestamp:new Date()});
           postRandomFact(p);
-          postEmojiReactions(p);
+
+          // ------ CONNECT TO v13 realism engine ------
+          if(window.realism?.ensurePool){
+            window.realism.ensurePool(1);
+            // inject joiner persona into pool
+            if(window.realism.POOL) window.realism.POOL.push({ persona:p, text:"joined the group", timestamp:new Date(), id:"join_"+Date.now() });
+          }
         },800+idx*600+Math.random()*300);
       });
     } else joiners.forEach((p,idx)=>setTimeout(()=>{
       postWelcomeAsBubbles(p,{timestamp:new Date()});
       postRandomFact(p);
-      postEmojiReactions(p);
+
+      if(window.realism?.ensurePool){
+        window.realism.ensurePool(1);
+        if(window.realism.POOL) window.realism.POOL.push({ persona:p, text:"joined the group", timestamp:new Date(), id:"join_"+Date.now() });
+      }
     },idx*600+Math.random()*200));
-    if(Math.random()<cfg.verifyMessageProbability){
-      const admin=(window.identity?.Admin)||{name:"Admin",avatar:"assets/admin.jpg"};
-      setTimeout(()=>{if(window.TGRenderer?.appendMessage) window.TGRenderer.appendMessage(admin,"Please verify via Contact Admin.",{timestamp:new Date(),type:"outgoing"});},1200+(joiners.length*200));
-    }
   }
 
   function scheduleNext(){
@@ -206,5 +208,5 @@
   Object.assign(window.joiner,{start,stop,joinNow,seedHistory,preGenerate,preGenPool,sanityCheck,config:cfg,isRunning:()=>running});
 
   setTimeout(()=>{try{joinNow(Math.max(1,(window.JOINER_CONFIG?.initialJoins)||3));}catch(e){}},500);
-  console.log("joiner-simulator ready: welcome texts + emojis + tips + trading facts + reactions");
+  console.log("joiner-simulator ready: connected to realism engine");
 })();
