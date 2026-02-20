@@ -1,4 +1,4 @@
-// bubble-renderer.js (Telegram-style tails fixed)
+// bubble-renderer.js (Telegram-style fix)
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("tg-comments-container");
   if (!container) {
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     content.className = "tg-bubble-content";
 
     // Sender name
-    if (name) {
+    if (name && !isOwn) { // only show name for incoming
       const sender = document.createElement("div");
       sender.className = "tg-bubble-sender";
       sender.textContent = name;
@@ -74,31 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Append avatar & content
     bubble.appendChild(avatarEl);
     bubble.appendChild(content);
-
-    // Add proper tail spacing and Telegram-style alignment
-    content.style.position = "relative";
-    const tail = document.createElement("div");
-    tail.className = isOwn ? "tg-tail-outgoing" : "tg-tail-incoming";
-
-    // Inline styling for tails (align from CSS)
-    tail.style.position = "absolute";
-    tail.style.top = "12px";
-    if (isOwn) {
-      tail.style.right = "-10px";
-      tail.style.width = "0";
-      tail.style.height = "0";
-      tail.style.borderTop = "8px solid transparent";
-      tail.style.borderBottom = "8px solid transparent";
-      tail.style.borderLeft = "10px solid #2b5278";
-    } else {
-      tail.style.left = "-10px";
-      tail.style.width = "0";
-      tail.style.height = "0";
-      tail.style.borderTop = "8px solid transparent";
-      tail.style.borderBottom = "8px solid transparent";
-      tail.style.borderRight = "10px solid #182533";
-    }
-    bubble.appendChild(tail);
 
     return bubble;
   }
