@@ -1,0 +1,123 @@
+[
+  {
+    "id": "m_20250314_0001",
+    "name": "Alice Johnson",
+    "avatar": "https://identity-service.com/avatar/1",
+    "text": "Hey everyone! Excited to join this chat.",
+    "time": "2025-03-14T08:02:10Z",
+    "isOwn": false
+  },
+  {
+    "id": "m_20250314_0002",
+    "name": "Bob Smith",
+    "avatar": "https://identity-service.com/avatar/2",
+    "text": "Morning all! Did anyone see the news?",
+    "time": "2025-03-14T08:05:22Z",
+    "isOwn": false
+  },
+  {
+    "id": "m_20250314_0003",
+    "name": "You",
+    "avatar": null,
+    "text": "Good morning, Bob! Not yet, what happened?",
+    "time": "2025-03-14T08:06:15Z",
+    "isOwn": true
+  },
+  {
+    "id": "m_20250314_0004",
+    "name": "Charlie Rivera",
+    "avatar": "https://identity-service.com/avatar/3",
+    "text": "Looks like the platform updated their terms yesterday.",
+    "time": "2025-03-14T08:07:40Z",
+    "isOwn": false
+  },
+  {
+    "id": "m_20250314_0005",
+    "name": "Dana Lee",
+    "avatar": "https://identity-service.com/avatar/4",
+    "text": "Anyone tried the new features yet?",
+    "time": "2025-03-14T08:10:05Z",
+    "isOwn": false
+  },
+  {
+    "id": "m_20250314_0006",
+    "name": "You",
+    "avatar": null,
+    "text": "Not yet, Dana. Planning to check it out this afternoon.",
+    "time": "2025-03-14T08:11:30Z",
+    "isOwn": true
+  },
+  {
+    "id": "m_20250314_0007",
+    "name": "Evan Wright",
+    "avatar": "https://identity-service.com/avatar/5",
+    "text": "The update seems buggy for some users, keep that in mind.",
+    "time": "2025-03-14T08:15:12Z",
+    "isOwn": false
+  },
+  {
+    "id": "m_20250314_0008",
+    "name": "Fiona Chen",
+    "avatar": "https://identity-service.com/avatar/6",
+    "text": "Thanks for the heads up, Evan!",
+    "time": "2025-03-14T08:16:45Z",
+    "isOwn": false
+  },
+  {
+    "id": "m_20250314_0009",
+    "name": "You",
+    "avatar": null,
+    "text": "I'll make sure to backup everything before trying.",
+    "time": "2025-03-14T08:18:20Z",
+    "isOwn": true
+  },
+  {
+    "id": "m_20250314_0010",
+    "name": "George Kim",
+    "avatar": "https://identity-service.com/avatar/7",
+    "text": "By the way, anyone here from the previous chat group?",
+    "time": "2025-03-14T08:20:03Z",
+    "isOwn": false
+  },
+  {
+    "id": "m_20250314_0011",
+    "name": "Hannah Lopez",
+    "avatar": "https://identity-service.com/avatar/8",
+    "text": "Yep, George! Recognize a few names here.",
+    "time": "2025-03-14T08:22:18Z",
+    "isOwn": false
+  },
+  {
+    "id": "m_20250314_0012",
+    "name": "You",
+    "avatar": null,
+    "text": "Great, Hannah! Feels good to see familiar faces.",
+    "time": "2025-03-14T08:23:40Z",
+    "isOwn": true
+  },
+  {
+    "id": "m_20250314_0013",
+    "name": "Isabel Martin",
+    "avatar": "https://identity-service.com/avatar/9",
+    "text": "Can someone explain how the verification works?",
+    "time": "2025-03-14T08:25:05Z",
+    "isOwn": false
+  },
+  {
+    "id": "m_20250314_0014",
+    "name": "You",
+    "avatar": null,
+    "text": "You need to contact the Admin using the pinned banner button.",
+    "time": "2025-03-14T08:26:30Z",
+    "isOwn": true
+  },
+  {
+    "id": "m_20250314_0015",
+    "name": "Jack Nguyen",
+    "avatar": "https://identity-service.com/avatar/10",
+    "text": "Just sent a request to Admin. Hoping for approval soon.",
+    "time": "2025-03-14T08:28:10Z",
+    "isOwn": false
+  }
+  /* ...continue up to 50 messages */
+]
