@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const content = document.createElement("div");
     content.className = "tg-bubble-content";
 
-    if (name) {
+    if (name && !isOwn) { // only show sender for incoming messages
       const sender = document.createElement("div");
       sender.className = "tg-bubble-sender";
       sender.textContent = name;
@@ -55,8 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
     content.appendChild(meta);
 
     // Append avatar & content
-    bubble.appendChild(avatarEl);
-    bubble.appendChild(content);
+    if (isOwn) {
+      bubble.appendChild(content);
+      bubble.appendChild(avatarEl);
+    } else {
+      bubble.appendChild(avatarEl);
+      bubble.appendChild(content);
+    }
 
     return bubble;
   }
@@ -64,6 +69,36 @@ document.addEventListener("DOMContentLoaded", () => {
   function appendMessage(message) {
     const bubble = createBubble(message);
     container.appendChild(bubble);
+    container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+  }
+
+  function appendJoinSticker(joiners) {
+    const sticker = document.createElement("div");
+    sticker.className = "tg-join-sticker";
+
+    const cluster = document.createElement("div");
+    cluster.className = "join-cluster";
+
+    joiners.forEach((user) => {
+      const avatar = document.createElement("img");
+      avatar.src = user.avatar || "assets/default-avatar.png";
+      avatar.alt = user.name;
+      cluster.appendChild(avatar);
+    });
+
+    sticker.appendChild(cluster);
+
+    const names = document.createElement("div");
+    names.className = "join-names";
+    names.textContent = joiners.map(u => u.name).join(", ");
+    sticker.appendChild(names);
+
+    const sub = document.createElement("div");
+    sub.className = "join-sub";
+    sub.textContent = joiners.length + " joined the chat";
+    sticker.appendChild(sub);
+
+    container.appendChild(sticker);
     container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
   }
 
@@ -76,5 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
   window.TGRenderer = window.TGRenderer || {};
   window.TGRenderer.appendMessage = appendMessage;
   window.TGRenderer.createBubble = createBubble;
+  window.TGRenderer.appendJoinSticker = appendJoinSticker;
   window.TGRenderer.clearMessages = clearMessages;
 });
