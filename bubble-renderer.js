@@ -1,4 +1,4 @@
-// bubble-renderer.js (Telegram-style fixed tails)
+// bubble-renderer.js (Telegram-style, connected to history JSON)
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("tg-comments-container");
   if (!container) {
@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const content = document.createElement("div");
     content.className = "tg-bubble-content";
 
-    // Sender name
-    if (name && !isOwn) { // show name only for incoming
+    // Sender name (only for incoming)
+    if (name && !isOwn) {
       const sender = document.createElement("div");
       sender.className = "tg-bubble-sender";
       sender.textContent = name;
@@ -62,11 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
     meta.textContent = new Date(time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     content.appendChild(meta);
 
-    // Tail container
+    // Tail
     const tail = document.createElement("div");
     tail.className = isOwn ? "tg-tail-outgoing" : "tg-tail-incoming";
 
-    // Assemble bubble
+    // Assemble bubble (avatar first for incoming, last for outgoing)
     if (isOwn) {
       bubble.appendChild(content);
       bubble.appendChild(avatarEl);
@@ -80,11 +80,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return bubble;
   }
 
-  /** Append message */
+  /** Append message and auto-scroll */
   function appendMessage(message) {
     const bubble = createBubble(message);
     container.appendChild(bubble);
     container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+    if (window.saveMessageHistory) window.saveMessageHistory(message);
   }
 
   /** Clear all messages */
