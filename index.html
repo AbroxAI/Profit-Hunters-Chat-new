@@ -8,7 +8,9 @@
   <link rel="stylesheet" href="widget.css" />
 
   <script>
-    // Site configuration (edit only these values)
+    // ------------------------
+    // Site & engine configuration
+    // ------------------------
     window.CONTACT_ADMIN_LINK = "https://t.me/ph_suppp";
     window.MEMBER_COUNT = 1284;
     window.ONLINE_COUNT = 128;
@@ -66,19 +68,21 @@
     </div>
   </div>
 
-  <!-- icons -->
+  <!-- Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- scripts (order matters) -->
+  <!-- ------------------------
+       Scripts (order matters)
+       ------------------------ -->
   <script src="identity-personas.js"></script>
-  <script src="bubble-renderer.js"></script>
+  <script src="bubble-renderer-typing-queue.js"></script>
   <script src="joiner-simulator.js"></script>
-  <script src="realism-engine-v11.js"></script>
-  <script src="interactions.js"></script>
+  <script src="realism-engine-v13.js"></script>
+  <script src="interactions-fixed.js"></script>
   <script src="app.js"></script>
 
   <script>
-    // guard: only call if lucide loaded
+    // Initialize lucide icons after DOM & scripts
     if (window.lucide && typeof window.lucide.createIcons === "function") {
       window.lucide.createIcons();
     }
