@@ -1,4 +1,4 @@
-// realism-engine-v13-abrox-multi-persona-typing-queue-merged.js
+// ===================== v13 Realism Engine (connected to v4) =====================
 (function(){
 
   const CONFIG = {
@@ -95,6 +95,9 @@
   const POOL = [];
   let UNREAD_COUNT = 0;
   let timer = null;
+
+  // Expose pool for v4 joiners to inject
+  window.realism = { POOL };
 
   function simulateOnline(){
     if(!window.MEMBER_COUNT) window.MEMBER_COUNT=2500;
@@ -289,10 +292,12 @@
 
   function start(){ ensurePool(CONFIG.minPoolSize); setTimeout(()=>tick(),1000); }
 
-  window.realism = { start, post, ensurePool, refill:()=>ensurePool(CONFIG.targetPoolSize), resetUnreadPill };
   function wait(){ if(window.TGRenderer?.appendMessage) start(); else setTimeout(wait,300); }
   wait();
   window.addEventListener("beforeunload",()=>{ timer && clearTimeout(timer); });
-  console.log("realism-engine-v13 ABROX BOT MULTI-PERSONA CHAINS + TYPO + HEADER TYPING QUEUE loaded");
+  console.log("realism-engine-v13 ABROX BOT MULTI-PERSONA CHAINS + TYPO + HEADER TYPING QUEUE loaded and connected to joiner v4");
+
+  // expose full API for v4 integration
+  Object.assign(window.realism, { start, post, ensurePool, refill:()=>ensurePool(CONFIG.targetPoolSize), resetUnreadPill });
 
 })();
