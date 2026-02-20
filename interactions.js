@@ -1,4 +1,4 @@
-// interactions.js
+// interactions.js (fixed with Telegram-style bubbles and input)
 document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("tg-comment-input");
   const sendBtn = document.getElementById("tg-send-btn");
@@ -12,13 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /** Show/hide send button based on input value */
   function toggleSendButton() {
-    if (input.value.trim().length > 0) {
-      sendBtn.classList.remove("hidden");
-      cameraBtn?.classList.add("hidden");
-    } else {
-      sendBtn.classList.add("hidden");
-      cameraBtn?.classList.remove("hidden");
-    }
+    const hasText = input.value.trim().length > 0;
+    sendBtn.classList.toggle("hidden", !hasText);
+    if (cameraBtn) cameraBtn.classList.toggle("hidden", hasText);
   }
 
   input.addEventListener("input", toggleSendButton);
@@ -41,13 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
     input.value = "";
     toggleSendButton();
 
-    // Scroll handled inside appendMessage
-    // Optional: push message to history.json / backend
+    // Optional: save to history.json or backend
     if (window.saveMessageHistory) window.saveMessageHistory(message);
   }
 
-  sendBtn.addEventListener("click", sendMessage);
-
+  /** Send on Enter key */
   input.addEventListener("keypress", (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -55,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /** Optional: click camera to trigger file input */
+  /** Click camera to send image */
   cameraBtn?.addEventListener("click", () => {
     const fileInput = document.createElement("input");
     fileInput.type = "file";
@@ -83,13 +77,25 @@ document.addEventListener("DOMContentLoaded", () => {
     fileInput.click();
   });
 
-  /** Optional: focus input scrolls container */
+  /** Focus scrolls container */
   input.addEventListener("focus", () => {
     setTimeout(() => {
       container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
     }, 100);
   });
 
+  /** Adjust input bar height dynamically for mobile */
+  function adjustInputBar() {
+    const wrapper = document.querySelector(".tg-input-bar");
+    if (!wrapper) return;
+    wrapper.style.height = "auto";
+    const scrollHeight = input.scrollHeight + 12; // extra padding
+    wrapper.style.height = `${Math.max(scrollHeight, 44)}px`;
+  }
+
+  input.addEventListener("input", adjustInputBar);
+
   // Initialize
   toggleSendButton();
+  adjustInputBar();
 });
