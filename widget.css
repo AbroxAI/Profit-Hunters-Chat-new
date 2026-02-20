@@ -10,9 +10,9 @@
   --tg-outgoing: #2b5278;
   --tg-accent: #2ea6ff;
 
-  --tg-avatar-size: 36px;
-  --tg-input-height: 44px;
-  --tg-input-radius: 22px;
+  --tg-avatar-size: 34px;
+  --tg-input-height: 46px;
+  --tg-input-radius: 24px;
 }
 
 /* ===============================
@@ -59,8 +59,7 @@ html, body {
   align-items: flex-start;
   gap: 8px;
   margin-bottom: 14px;
-  max-width: 78%;
-  position: relative;
+  max-width: 80%;
 }
 
 .tg-bubble.incoming {
@@ -74,8 +73,8 @@ html, body {
 
 /* Avatar */
 .tg-bubble-avatar {
-  width: 34px;
-  height: 34px;
+  width: var(--tg-avatar-size);
+  height: var(--tg-avatar-size);
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
@@ -85,15 +84,15 @@ html, body {
 /* Bubble Content */
 .tg-bubble-content {
   position: relative;
-  padding: 8px 12px;
-  border-radius: 14px;
+  padding: 9px 13px;
+  border-radius: 16px;
   font-size: 14px;
   line-height: 1.45;
   word-break: break-word;
   max-width: 100%;
 }
 
-/* Backgrounds + spacing from avatar */
+/* Background + spacing from avatar */
 .tg-bubble.incoming .tg-bubble-content {
   background: var(--tg-incoming);
   margin-left: 6px;
@@ -109,7 +108,6 @@ html, body {
   font-size: 13px;
   font-weight: 600;
   margin-bottom: 6px;
-  color: var(--tg-text);
 }
 
 /* Message text */
@@ -138,11 +136,11 @@ html, body {
    TELEGRAM-STYLE TAILS
 ================================ */
 
-/* Base triangle */
+/* Base */
 .tg-bubble-content::before {
   content: "";
   position: absolute;
-  top: 14px;
+  top: 15px;
   width: 0;
   height: 0;
 }
@@ -167,26 +165,23 @@ html, body {
    REPLY PREVIEW
 ================================ */
 .tg-reply-preview {
-  background: rgba(255,255,255,0.03);
+  background: rgba(255,255,255,0.04);
   padding: 6px 8px;
-  border-left: 3px solid rgba(255,255,255,0.08);
+  border-left: 3px solid rgba(255,255,255,0.1);
   border-radius: 8px;
   margin-bottom: 6px;
   font-size: 12px;
   color: var(--tg-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  word-break: break-word;
 }
 
 /* ===============================
    INPUT BAR
 ================================ */
 .tg-input-wrapper {
-  padding: 8px 12px;
+  padding: 10px 12px;
   position: sticky;
   bottom: 0;
-  background: transparent;
 }
 
 .tg-input-bar {
@@ -196,14 +191,13 @@ html, body {
   width: 100%;
   height: var(--tg-input-height);
   border-radius: var(--tg-input-radius);
-  background: rgba(23,33,43,0.6);
+  background: rgba(23,33,43,0.7);
   backdrop-filter: blur(10px);
-  padding: 0 12px;
+  padding: 0 14px;
 }
 
 .tg-comment-input {
   flex: 1;
-  height: 100%;
   border: none;
   background: transparent;
   color: var(--tg-text);
@@ -225,50 +219,44 @@ html, body {
   cursor: pointer;
 }
 
-/* Icon Buttons */
-.tg-icon-btn {
-  background: none;
-  border: none;
-  color: var(--tg-muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 /* ===============================
-   JOIN STICKER
+   JOIN STICKER (FIXED)
 ================================ */
 .tg-join-sticker {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 16px auto;
-  padding: 12px;
-  background: rgba(23,33,43,0.65);
-  backdrop-filter: blur(8px);
-  border-radius: 14px;
-  max-width: 85%;
+  margin: 18px auto;
+  padding: 14px 18px;
+  background: rgba(23,33,43,0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  max-width: 92%;
+  width: fit-content;
   text-align: center;
 }
 
 .join-cluster {
   display: flex;
+  justify-content: center;
   margin-bottom: 8px;
 }
 
 .join-cluster img {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   object-fit: cover;
   margin-left: -10px;
-  border: 2px solid rgba(255,255,255,0.06);
+  border: 2px solid rgba(255,255,255,0.08);
 }
 
 .join-names {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
+  line-height: 1.35;
+  word-break: break-word;
+  max-width: 100%;
 }
 
 .join-sub {
@@ -282,7 +270,7 @@ html, body {
 ================================ */
 @media (max-width: 520px) {
   .tg-bubble {
-    max-width: 85%;
+    max-width: 88%;
   }
 
   .tg-bubble-avatar {
