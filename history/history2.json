@@ -1,0 +1,402 @@
+[
+{
+"id":"m_20251205_051",
+"time":"2025-12-05T18:30:00Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"📊 USD/JPY BUY M5\nEntry: 145.32\nTP: 145.45\nSL: 145.20",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_052",
+"time":"2025-12-05T18:30:20Z",
+"name":"CryptoLily 💎",
+"avatar":"https://api.dicebear.com/7.x/pixel-art/svg?seed=cryptolily",
+"text":"in",
+"type":"incoming"
+},
+{
+"id":"m_20251205_053",
+"time":"2025-12-05T18:30:45Z",
+"name":"Mike",
+"avatar":"https://randomuser.me/api/portraits/men/32.jpg",
+"text":"entered too",
+"type":"incoming"
+},
+{
+"id":"m_20251205_054",
+"time":"2025-12-05T18:31:00Z",
+"name":"Sarah 🚀",
+"avatar":"assets/avatars/user12.jpg",
+"text":"lets gooo",
+"type":"incoming"
+},
+{
+"id":"m_20251205_055",
+"time":"2025-12-05T18:32:15Z",
+"name":"ABROX Admin",
+"avatar":"assets/admin.jpg",
+"text":"Monitor 1 candle for volatility.",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_056",
+"time":"2025-12-05T18:34:10Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"TP HIT ✅ +5",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_057",
+"time":"2025-12-05T18:34:20Z",
+"name":"Jay",
+"avatar":"https://randomuser.me/api/portraits/men/11.jpg",
+"text":"2/3 today 🔥",
+"type":"incoming"
+},
+{
+"id":"m_20251205_058",
+"time":"2025-12-05T19:00:00Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"📊 NAS100 SELL M5\nEntry: 16860\nTP: 16830\nSL: 16880",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_059",
+"time":"2025-12-05T19:00:30Z",
+"name":"ScalpGod",
+"avatar":"https://api.dicebear.com/7.x/bottts/svg?seed=scalpgod",
+"text":"in",
+"type":"incoming"
+},
+{
+"id":"m_20251205_060",
+"time":"2025-12-05T19:01:00Z",
+"name":"LeoCharts",
+"avatar":"assets/avatars/user88.jpg",
+"text":"entered",
+"type":"incoming"
+},
+{
+"id":"m_20251205_061",
+"time":"2025-12-05T19:02:00Z",
+"name":"ABROX Admin",
+"avatar":"assets/admin.jpg",
+"text":"Keep SL tight on this one.",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_062",
+"time":"2025-12-05T19:05:20Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"SL HIT ❌",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_063",
+"time":"2025-12-05T19:06:10Z",
+"name":"CryptoJay",
+"avatar":"https://api.dicebear.com/7.x/pixel-art/svg?seed=cryptojay",
+"text":"ouch 😅",
+"type":"incoming"
+},
+{
+"id":"m_20251205_064",
+"time":"2025-12-05T19:06:40Z",
+"name":"Mia 📈",
+"avatar":"https://randomuser.me/api/portraits/women/44.jpg",
+"text":"next one",
+"type":"incoming"
+},
+{
+"id":"m_20251205_065",
+"time":"2025-12-05T20:00:00Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"📊 GBP/USD SELL M5\nEntry: 1.2452\nTP: 1.2445\nSL: 1.2462",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_066",
+"time":"2025-12-05T20:00:25Z",
+"name":"Mike",
+"avatar":"https://randomuser.me/api/portraits/men/32.jpg",
+"text":"in",
+"type":"incoming"
+},
+{
+"id":"m_20251205_067",
+"time":"2025-12-05T20:01:10Z",
+"name":"Sarah 🚀",
+"avatar":"assets/avatars/user12.jpg",
+"text":"lets go 🔥",
+"type":"incoming"
+},
+{
+"id":"m_20251205_068",
+"time":"2025-12-05T20:02:00Z",
+"name":"ABROX Admin",
+"avatar":"assets/admin.jpg",
+"text":"Risk 2% max.",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_069",
+"time":"2025-12-05T20:05:00Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"TP HIT ✅",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_070",
+"time":"2025-12-05T20:05:20Z",
+"name":"Jay",
+"avatar":"https://randomuser.me/api/portraits/men/11.jpg",
+"text":"🔥 3/4",
+"type":"incoming"
+},
+{
+"id":"m_20251205_071",
+"time":"2025-12-05T21:30:00Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"📊 GOLD BUY M5\nEntry: 2020\nTP: 2025\nSL: 2015",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_072",
+"time":"2025-12-05T21:30:40Z",
+"name":"CryptoLily 💎",
+"avatar":"https://api.dicebear.com/7.x/pixel-art/svg?seed=cryptolily",
+"text":"entered",
+"type":"incoming"
+},
+{
+"id":"m_20251205_073",
+"time":"2025-12-05T21:31:10Z",
+"name":"Mia 📈",
+"avatar":"https://randomuser.me/api/portraits/women/44.jpg",
+"text":"in 🔥",
+"type":"incoming"
+},
+{
+"id":"m_20251205_074",
+"time":"2025-12-05T21:32:00Z",
+"name":"ABROX Admin",
+"avatar":"assets/admin.jpg",
+"text":"Keep SL tight, good trade.",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_075",
+"time":"2025-12-05T21:35:00Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"TP HIT ✅ +5",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_076",
+"time":"2025-12-05T21:36:00Z",
+"name":"Sarah 🚀",
+"avatar":"assets/avatars/user12.jpg",
+"text":"💰💰",
+"type":"incoming"
+},
+{
+"id":"m_20251205_077",
+"time":"2025-12-05T21:36:25Z",
+"name":"Jay",
+"avatar":"https://randomuser.me/api/portraits/men/11.jpg",
+"text":"lets go 🔥🔥",
+"type":"incoming"
+},
+{
+"id":"m_20251205_078",
+"time":"2025-12-05T22:15:00Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"📊 NAS100 BUY M5\nEntry: 16850\nTP: 16875\nSL: 16820",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_079",
+"time":"2025-12-05T22:15:20Z",
+"name":"ScalpGod",
+"avatar":"https://api.dicebear.com/7.x/bottts/svg?seed=scalpgod",
+"text":"in",
+"type":"incoming"
+},
+{
+"id":"m_20251205_080",
+"time":"2025-12-05T22:16:00Z",
+"name":"LeoCharts",
+"avatar":"assets/avatars/user88.jpg",
+"text":"entered",
+"type":"incoming"
+},
+{
+"id":"m_20251205_081",
+"time":"2025-12-05T22:18:00Z",
+"name":"ABROX Admin",
+"avatar":"assets/admin.jpg",
+"text":"Monitor carefully.",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_082",
+"time":"2025-12-05T22:21:00Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"TP HIT ✅",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_083",
+"time":"2025-12-05T22:21:30Z",
+"name":"Mike",
+"avatar":"https://randomuser.me/api/portraits/men/32.jpg",
+"text":"💪",
+"type":"incoming"
+},
+{
+"id":"m_20251205_084",
+"time":"2025-12-05T22:21:55Z",
+"name":"CryptoJay",
+"avatar":"https://api.dicebear.com/7.x/pixel-art/svg?seed=cryptojay",
+"text":"nice one",
+"type":"incoming"
+},
+{
+"id":"m_20251205_085",
+"time":"2025-12-05T22:22:10Z",
+"name":"Sarah 🚀",
+"avatar":"assets/avatars/user12.jpg",
+"text":"🔥",
+"type":"incoming"
+},
+{
+"id":"m_20251205_086",
+"time":"2025-12-05T22:50:00Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"📊 EUR/USD SELL M5\nEntry: 1.0820\nTP: 1.0812\nSL: 1.0830",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_087",
+"time":"2025-12-05T22:50:20Z",
+"name":"LeoCharts",
+"avatar":"assets/avatars/user88.jpg",
+"text":"in",
+"type":"incoming"
+},
+{
+"id":"m_20251205_088",
+"time":"2025-12-05T22:50:45Z",
+"name":"Mia 📈",
+"avatar":"https://randomuser.me/api/portraits/women/44.jpg",
+"text":"entered",
+"type":"incoming"
+},
+{
+"id":"m_20251205_089",
+"time":"2025-12-05T22:51:10Z",
+"name":"Jay",
+"avatar":"https://randomuser.me/api/portraits/men/11.jpg",
+"text":"same",
+"type":"incoming"
+},
+{
+"id":"m_20251205_090",
+"time":"2025-12-05T22:52:00Z",
+"name":"ABROX Admin",
+"avatar":"assets/admin.jpg",
+"text":"Good entries, watch SL.",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_091",
+"time":"2025-12-05T22:55:00Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"TP HIT ✅",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_092",
+"time":"2025-12-05T22:55:15Z",
+"name":"CryptoLily 💎",
+"avatar":"https://api.dicebear.com/7.x/pixel-art/svg?seed=cryptolily",
+"text":"💰",
+"type":"incoming"
+},
+{
+"id":"m_20251205_093",
+"time":"2025-12-05T22:55:30Z",
+"name":"Mike",
+"avatar":"https://randomuser.me/api/portraits/men/32.jpg",
+"text":"nice",
+"type":"incoming"
+},
+{
+"id":"m_20251205_094",
+"time":"2025-12-05T23:00:00Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"📊 GOLD SELL M5\nEntry: 2018\nTP: 2012\nSL: 2023",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_095",
+"time":"2025-12-05T23:00:20Z",
+"name":"Sarah 🚀",
+"avatar":"assets/avatars/user12.jpg",
+"text":"in 🔥",
+"type":"incoming"
+},
+{
+"id":"m_20251205_096",
+"time":"2025-12-05T23:00:45Z",
+"name":"CryptoJay",
+"avatar":"https://api.dicebear.com/7.x/pixel-art/svg?seed=cryptojay",
+"text":"entered",
+"type":"incoming"
+},
+{
+"id":"m_20251205_097",
+"time":"2025-12-05T23:01:10Z",
+"name":"LeoCharts",
+"avatar":"assets/avatars/user88.jpg",
+"text":"same",
+"type":"incoming"
+},
+{
+"id":"m_20251205_098",
+"time":"2025-12-05T23:03:00Z",
+"name":"ABROX Admin",
+"avatar":"assets/admin.jpg",
+"text":"Good setup, stick to plan.",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_099",
+"time":"2025-12-05T23:05:00Z",
+"name":"ABROX Signals",
+"avatar":"assets/bot.jpg",
+"text":"TP HIT ✅",
+"type":"outgoing"
+},
+{
+"id":"m_20251205_100",
+"time":"2025-12-05T23:05:15Z",
+"name":"Jay",
+"avatar":"https://randomuser.me/api/portraits/men/11.jpg",
+"text":"💪",
+"type":"incoming"
+}
+]
