@@ -3,144 +3,85 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Profit Hunters — Chat</title>
+  <title>Abrox – Profit Hunters Chat</title>
 
-  <!-- Lucide icons (will be used by scripts & pin CTA) -->
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.276.0/dist/umd/lucide.min.js" defer></script>
+  <link rel="stylesheet" href="widget.css" />
 
-  <!-- Theme detection helper -->
-  <meta name="color-scheme" content="light dark">
+  <script>
+    // Site configuration (edit only these values)
+    window.CONTACT_ADMIN_LINK = "https://t.me/ph_suppp";
+    window.MEMBER_COUNT = 1284;
+    window.ONLINE_COUNT = 128;
 
-  <!-- Widget CSS (load next) -->
-  <link rel="stylesheet" href="widget.css">
+    window.REALISM_CONFIG = {
+      TOTAL_PERSONAS: 1200,
+      INITIAL_POOL: 400,
+      POOL_MIN: 300,
+      POOL_MAX: 3000,
+      DEDUP_LIMIT: 200000,
+      MIN_INTERVAL_MS: 20000,
+      MAX_INTERVAL_MS: 60000,
+      REACTION_TICK_MS: 30000,
+      TREND_SPIKE_PROB: 0.02
+    };
 
-  <style>
-    /* Minimal inline reset to avoid flash before widget.css loads */
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
-    .hidden{display:none !important}
-  </style>
+    window.JOINER_CONFIG = {
+      minIntervalMs: 1000*60*60*6,
+      maxIntervalMs: 1000*60*60*24,
+      initialJoins: 3,
+      welcomeMessage: "Welcome! Please use Contact Admin to verify."
+    };
+  </script>
 </head>
 <body>
+  <div id="tg-comments-app">
+    <header class="tg-header" role="banner">
+      <button id="tg-back" class="tg-back-btn" aria-label="Back"><i data-lucide="arrow-left"></i></button>
+      <div class="tg-header-center">
+        <img src="assets/logo.jpg" alt="Logo" class="tg-header-avatar" />
+        <div class="tg-header-info">
+          <div class="tg-title">🌐 Profit Hunters Chat</div>
+          <div class="tg-meta" id="tg-meta-line">1,284 members, 128 online</div>
+        </div>
+      </div>
+      <button id="tg-options" class="tg-options-btn" aria-label="Options"><i data-lucide="more-vertical"></i></button>
+    </header>
 
-  <!-- App Header -->
-  <header id="tg-header" class="tg-header">
-    <div class="tg-header-left">
-      <div class="tg-avatar">
-        <img src="assets/group-avatar.jpg" alt="Profit Hunters" />
-      </div>
-      <div class="tg-meta">
-        <div id="tg-title" class="tg-title">Profit Hunters</div>
-        <div id="tg-meta-line" class="tg-meta-line">— members, — online</div>
-      </div>
+    <div id="tg-pin-banner" class="tg-pin-banner hidden" role="region" aria-live="polite"></div>
+
+    <main id="tg-comments-container" class="tg-comments-container" role="feed" aria-live="off"></main>
+
+    <div id="tg-jump-indicator" class="hidden" aria-hidden="true">
+      <i data-lucide="chevron-down"></i>
+      <span id="tg-jump-text">New messages</span>
     </div>
 
-    <div class="tg-header-right">
-      <button id="tg-theme-toggle" class="tg-icon-btn" aria-label="Toggle theme" title="Toggle theme">
-        <i data-lucide="moon"></i>
-      </button>
-      <button id="tg-contact-admin-top" class="tg-ghost-btn contact-admin-btn" title="Contact admin">
-        <i data-lucide="phone"></i>
-      </button>
+    <div class="tg-input-wrapper" role="form" aria-label="Send a message">
+      <div class="tg-input-bar glass">
+        <button id="tg-emoji-btn" class="tg-icon-btn" aria-label="Emoji"><i data-lucide="smile"></i></button>
+        <input type="text" id="tg-comment-input" class="tg-comment-input" placeholder="Message…" autocomplete="off" />
+        <button id="tg-camera-btn" class="tg-icon-btn" aria-label="Camera"><i data-lucide="camera"></i></button>
+        <button id="tg-send-btn" class="tg-send-btn hidden" aria-label="Send message"><i data-lucide="send"></i></button>
+      </div>
     </div>
-  </header>
-
-  <!-- Sticky pin banner (always visible as requested) -->
-  <div id="tg-pin-banner" class="tg-pin-banner" role="region" aria-live="polite" aria-label="Pinned message">
-    <!-- Will be populated by app.js (showPinBanner) -->
   </div>
 
-  <!-- Main chat area -->
-  <main class="tg-main">
-    <div id="tg-comments-wrapper" class="tg-comments-wrapper">
-      <div id="tg-comments-container" class="tg-comments-container" aria-live="polite" role="log">
-        <!-- Message bubbles appended here by TGRenderer or BubbleRenderer -->
-      </div>
+  <!-- icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-      <!-- Jump indicator (scroll-to-bottom) -->
-      <button id="tg-jump-indicator" class="tg-jump-indicator hidden" aria-label="Jump to latest">
-        <span id="tg-jump-text">New messages</span>
-        <span class="tg-jump-count hidden" aria-hidden="true">•</span>
-      </button>
-    </div>
-  </main>
+  <!-- scripts (order matters) -->
+  <script src="identity-personas.js"></script>
+  <script src="bubble-renderer.js"></script>
+  <script src="joiner-simulator.js"></script>
+  <script src="realism-engine-v11.js"></script>
+  <script src="interactions.js"></script>
+  <script src="app.js"></script>
 
-  <!-- Composer / Input bar -->
-  <footer id="tg-composer" class="tg-composer" role="region" aria-label="Message composer">
-    <button id="tg-camera-btn" class="tg-icon-btn tg-camera-btn" title="Attach">
-      <i data-lucide="camera"></i>
-    </button>
-
-    <div class="tg-input-wrap">
-      <textarea id="tg-comment-input" class="tg-comment-input" rows="1" placeholder="Message @ProfitHunter" aria-label="Write a message"></textarea>
-      <!-- small typed-reply preview area (used by TGRenderer.showTyping) -->
-      <div id="tg-typing-preview" class="tg-typing-preview hidden" aria-hidden="true"></div>
-    </div>
-
-    <button id="tg-send-btn" class="tg-send-btn hidden" aria-label="Send">
-      <i data-lucide="arrow-right"></i>
-    </button>
-  </footer>
-
-  <!-- Context menu (idempotent that interactions.js expects) -->
-  <div id="tg-msg-context" class="tg-msg-context hidden" role="menu" aria-hidden="true"></div>
-
-  <!-- Optional small pin/banner modal (for desktop) -->
-  <div id="tg-pin-modal" class="tg-pin-modal hidden" role="dialog" aria-hidden="true"></div>
-
-  <!-- Scripts: order matters -->
-  <!-- 1) Interaction helpers (requires DOM) -->
-  <script src="interactions.js" defer></script>
-
-  <!-- 2) Joiner simulator -->
-  <script src="joiner-simulator.js" defer></script>
-
-  <!-- 3) Realism engine (v13 recommended) -->
-  <script src="realism-engine-v13.js" defer></script>
-
-  <!-- 4) Pin/banner + app glue -->
-  <script src="app.js" defer></script>
-
-  <!-- small bootstrap to ensure lucide icons render once DOM is ready -->
   <script>
-    (function(){
-      function initIcons(){ try{ if(window.lucide && typeof window.lucide.createIcons === 'function') window.lucide.createIcons(); }catch(e){} }
-      if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initIcons);
-      else initIcons();
-
-      // quick theme toggle hookup (scripts can also read document.documentElement.dataset.theme)
-      const themeToggle = document.getElementById('tg-theme-toggle');
-      function applyTheme(t){
-        document.documentElement.dataset.theme = t;
-        // keep a persistent flag so JS can read it
-        try{ localStorage.setItem('abrox_theme', t); }catch(e){}
-      }
-      // init from storage / prefers-color-scheme
-      (function(){
-        try{
-          const stored = localStorage.getItem('abrox_theme');
-          if(stored) applyTheme(stored);
-          else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
-          else applyTheme('light');
-        }catch(e){ applyTheme('light'); }
-      })();
-
-      if(themeToggle){
-        themeToggle.addEventListener('click', ()=>{
-          const current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
-          applyTheme(current === 'dark' ? 'light' : 'dark');
-          initIcons();
-        });
-      }
-
-      // expose helpers for debugging
-      window.UI = window.UI || {};
-      Object.assign(window.UI, {
-        jumpIndicator: document.getElementById('tg-jump-indicator'),
-        commentsContainer: document.getElementById('tg-comments-container'),
-        input: document.getElementById('tg-comment-input'),
-        pinBanner: document.getElementById('tg-pin-banner')
-      });
-    })();
+    // guard: only call if lucide loaded
+    if (window.lucide && typeof window.lucide.createIcons === "function") {
+      window.lucide.createIcons();
+    }
   </script>
 </body>
 </html>
