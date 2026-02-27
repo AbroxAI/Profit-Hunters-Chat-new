@@ -1,42 +1,46 @@
-/* ===============================
-   widget.css — Telegram 2026 Chat
-   Fully compatible with all scripts
-   Handles avatars, bubbles, pin banner
-=============================== */
+/* widget.css — tweaked for proper avatars, pin banner, bubbles, input bar */
 
-/* RESET & BASE */
-* {
-  box-sizing: border-box;
+/* ===========================
+   GLOBAL STYLES
+=========================== */
+body, html {
   margin: 0;
   padding: 0;
-}
-
-body, html {
-  width: 100%;
-  height: 100%;
-  font-family: "Segoe UI", Roboto, sans-serif;
+  font-family: "Inter", "Segoe UI", sans-serif;
   background: #171f2b;
-  color: #f1f1f1;
-  overflow: hidden;
+  color: #e0e0e0;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/* APP CONTAINER */
 #tg-comments-app {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
+  position: relative;
 }
 
-/* HEADER */
+/* ===========================
+   HEADER
+=========================== */
 .tg-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #1f2a38;
-  padding: 8px 12px;
-  border-bottom: 1px solid #2c3a4a;
+  padding: 10px 14px;
+  background: #1f2937;
+  color: #fff;
+  position: relative;
   z-index: 10;
+  border-bottom: 1px solid #2e3a4a;
+}
+
+.tg-header-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .tg-header-center {
@@ -44,97 +48,103 @@ body, html {
   align-items: center;
 }
 
-.tg-header-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  margin-right: 8px;
-}
-
 .tg-header-info {
-  display: flex;
-  flex-direction: column;
+  margin-left: 8px;
 }
 
 .tg-title {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 .tg-meta {
-  font-size: 12px;
-  color: #b0b8c1;
+  font-size: 0.8rem;
+  color: #a0a0a0;
 }
 
-/* PIN BANNER */
+/* ===========================
+   PIN BANNER
+=========================== */
 .tg-pin-banner {
   display: flex;
   flex-direction: column;
-  background: #232f3f;
-  padding: 10px;
-  margin: 4px 8px;
+  align-items: center;
+  padding: 10px 14px;
+  background: linear-gradient(180deg, #2c3a50 0%, #1b2735 100%);
   border-radius: 12px;
-  gap: 6px;
-  transition: all 0.3s ease;
+  margin: 6px 14px;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .tg-pin-banner.show {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .tg-pin-banner img {
   width: 100%;
-  border-radius: 8px;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 8px;
 }
 
 .pin-text {
   font-weight: 500;
-  font-size: 13px;
-  color: #fff;
+  margin-bottom: 8px;
+  text-align: center;
 }
 
 .pin-btn-container {
   display: flex;
-  gap: 6px;
+  gap: 8px;
 }
 
 .pin-btn, .glass-btn {
-  cursor: pointer;
-  padding: 4px 8px;
-  font-size: 12px;
-  border: none;
-  border-radius: 16px;
+  padding: 6px 12px;
+  border-radius: 20px;
   font-weight: 500;
-  transition: 0.2s;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: none;
 }
 
 .pin-btn {
-  background: #2d8cff;
+  background: #2563eb;
   color: #fff;
 }
 
 .glass-btn {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255,255,255,0.15);
   color: #fff;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(10px);
 }
 
-/* CHAT CONTAINER */
+/* ===========================
+   CHAT CONTAINER
+=========================== */
 .tg-comments-container {
   flex: 1;
   overflow-y: auto;
-  padding: 12px 8px;
+  padding: 10px 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
-/* BUBBLES */
+/* ===========================
+   MESSAGE BUBBLES
+=========================== */
 .tg-bubble {
   display: flex;
-  align-items: flex-start;
-  max-width: 80%;
+  align-items: flex-end;
   gap: 8px;
+  max-width: 80%;
+  word-break: break-word;
+  position: relative;
 }
 
 .tg-bubble.incoming {
@@ -143,87 +153,100 @@ body, html {
 
 .tg-bubble.outgoing {
   flex-direction: row-reverse;
-  align-self: flex-end;
+  margin-left: auto;
 }
 
-.tg-bubble .tg-avatar {
-  width: 32px;
-  height: 32px;
+.tg-bubble-avatar {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
+  object-fit: cover;
   flex-shrink: 0;
 }
 
-.tg-bubble .tg-content {
+.tg-bubble-content {
+  background: #1f2937;
   padding: 8px 12px;
   border-radius: 18px;
-  font-size: 13px;
-  line-height: 1.4;
-  word-wrap: break-word;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+  position: relative;
 }
 
-.tg-bubble.incoming .tg-content {
-  background: #2a3b52;
-  color: #f1f1f1;
+.tg-bubble.incoming .tg-bubble-content {
+  border-top-left-radius: 4px;
 }
 
-.tg-bubble.outgoing .tg-content {
-  background: #2d8cff;
+.tg-bubble.outgoing .tg-bubble-content {
+  background: #2563eb;
   color: #fff;
+  border-top-right-radius: 4px;
 }
 
-/* DATE STICKERS */
-.tg-date-sticker {
-  align-self: center;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  background: #2c3a4a;
-  color: #b0b8c1;
+.tg-bubble .tg-bubble-text {
+  display: block;
 }
 
-/* JOIN STICKERS */
+.tg-bubble .tg-bubble-reply {
+  font-size: 0.75rem;
+  color: #a0a0a0;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+/* ===========================
+   JOIN STICKERS
+=========================== */
 .tg-join-sticker {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 6px 0;
+  align-items: flex-start;
+  background: #1f2937;
+  padding: 6px 8px;
+  border-radius: 14px;
+  max-width: 100%;
 }
 
 .join-cluster {
   display: flex;
   position: relative;
-  gap: -12px;
 }
 
 .join-avatar {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
+  object-fit: cover;
   border: 2px solid #171f2b;
+  margin-left: -12px;
+  background: #2c3a50;
+  flex-shrink: 0;
 }
 
 .join-more {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #2d3a4f;
-  border-radius: 50%;
+  background: #2563eb;
   color: #fff;
-  font-size: 12px;
+  font-size: 0.75rem;
+  border-radius: 50%;
+  margin-left: -12px;
 }
 
-/* INPUT BAR */
+/* ===========================
+   INPUT BAR
+=========================== */
 .tg-input-wrapper {
-  padding: 8px;
-  border-top: 1px solid #2c3a4a;
-  background: #171f2b;
+  padding: 6px 12px;
+  background: transparent;
 }
 
 .tg-input-bar {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(23, 33, 43, 0.78);
+  background: rgba(23,33,43,0.78);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: 26px;
@@ -234,35 +257,56 @@ body, html {
   flex: 1;
   background: transparent;
   border: none;
+  color: #fff;
+  font-size: 0.95rem;
   outline: none;
-  color: #f1f1f1;
-  font-size: 14px;
-  padding: 6px 4px;
 }
 
 .tg-icon-btn {
-  width: 28px;
-  height: 28px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.tg-send-btn {
+  background: #2563eb;
+  color: #fff;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f1f1f1;
 }
 
-.tg-send-btn.hidden {
-  display: none;
-}
-
-/* NEW MESSAGE PILL */
+/* ===========================
+   NEW MESSAGE PILL
+=========================== */
 #tg-new-pill {
-  position: sticky;
-  bottom: 70px;
-  align-self: center;
-  background: #2d8cff;
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2563eb;
   color: #fff;
-  padding: 4px 10px;
-  border-radius: 16px;
-  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
   cursor: pointer;
-  z-index: 20;
 }
+
+/* ===========================
+   DATE STICKERS
+=========================== */
+.tg-date-sticker {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #a0a0a0;
+  margin: 10px 0;
+}
+
+/* ===========================
+   MISC
+=========================== */
+.hidden { display: none !important; }
