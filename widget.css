@@ -1,70 +1,268 @@
-/* widget.css (final) */
-/* variables */
-:root{ --tg-bg-main:#0e1621; --tg-text:#e6eef8; --tg-muted:#9aa7bd; --tg-accent:#2ea6ff; --tg-avatar-size:36px; --tg-header-height:56px; --tg-input-height:44px; --tg-input-radius:22px; --gold:#ffd166; }
+/* ===============================
+   widget.css — Telegram 2026 Chat
+   Fully compatible with all scripts
+   Handles avatars, bubbles, pin banner
+=============================== */
 
-/* base */
-*{box-sizing:border-box} html,body{height:100dvh;margin:0;color:var(--tg-text);background:linear-gradient(180deg,#0e1621,#17212b);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;-webkit-font-smoothing:antialiased}
-.hidden{display:none!important}
+/* RESET & BASE */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-/* layout */
-#tg-comments-app{display:flex;flex-direction:column;height:100dvh;overflow:hidden}
-.tg-header{display:flex;align-items:center;justify-content:space-between;height:var(--tg-header-height);padding:0 14px;background:#17212b;position:sticky;top:0;z-index:60;box-shadow:0 2px 8px rgba(0,0,0,0.12)}
-.tg-header-center{display:flex;align-items:center;gap:10px;flex:1;margin:0 12px;min-width:0}
-.tg-header-avatar{width:var(--tg-avatar-size);height:var(--tg-avatar-size);border-radius:8px;object-fit:cover}
-.tg-title{font-size:15px;font-weight:700;color:var(--tg-text)}
-.tg-meta{font-size:12px;color:var(--tg-muted);margin-top:2px}
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: #171f2b;
+  color: #f1f1f1;
+  overflow: hidden;
+}
 
-/* pin banner */
-.tg-pin-banner{display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(23,33,43,0.55);backdrop-filter:blur(8px);border-radius:20px;color:var(--tg-text);font-size:13px;position:sticky;top:calc(var(--tg-header-height) + 8px);z-index:55;max-width:92%;margin:10px auto;transform:translateY(-8px);opacity:0;transition:all 320ms}
-.tg-pin-banner.show{transform:translateY(0);opacity:1}
-.tg-pin-banner img{width:40px;height:40px;border-radius:8px;object-fit:cover}
-.tg-pin-banner .pin-text{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tg-pin-banner .contact-admin-btn{height:36px;border-radius:18px;padding:8px 14px;background:var(--tg-accent);color:#fff;border:none;cursor:pointer;box-shadow:0 6px 18px rgba(46,166,255,0.12);font-weight:600}
+/* APP CONTAINER */
+#tg-comments-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
 
-/* comments container */
-.tg-comments-container{flex:1 1 auto;padding:12px;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.tg-date-sticker{display:inline-block;background:rgba(255,255,255,0.03);padding:6px 12px;border-radius:16px;font-size:12px;color:var(--tg-muted);margin:12px auto;display:block;width:max-content}
+/* HEADER */
+.tg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1f2a38;
+  padding: 8px 12px;
+  border-bottom: 1px solid #2c3a4a;
+  z-index: 10;
+}
 
-/* bubble */
-.tg-bubble{display:flex;align-items:flex-start;gap:8px;margin-bottom:14px;max-width:75%;position:relative}
-.tg-bubble.incoming{justify-content:flex-start}
-.tg-bubble.outgoing{flex-direction:row-reverse;margin-left:auto}
-.tg-bubble-avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;flex-shrink:0;margin-top:2px}
-.tg-bubble-content{padding:8px 12px;border-radius:14px;font-size:14px;line-height:1.4;word-break:break-word;position:relative;max-width:100%;transition:all .18s ease}
-.tg-bubble.incoming .tg-bubble-content{background:#182533}
-.tg-bubble.outgoing .tg-bubble-content{background:#2b5278}
-.tg-bubble.incoming .tg-bubble-content:before{content:"";position:absolute;left:-6px;top:10px;width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-right:8px solid #182533;transform:translateX(-6px)}
-.tg-bubble.outgoing .tg-bubble-content:before{content:"";position:absolute;right:-6px;top:10px;width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-left:8px solid #2b5278;transform:translateX(6px)}
-.tg-bubble-sender{font-size:13px;font-weight:600;margin-bottom:6px;color:var(--tg-text)}
-.tg-bubble-text{white-space:pre-wrap}
-.tg-bubble-meta{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:11px;color:var(--tg-muted)}
-.tg-bubble-image{display:block;max-width:280px;border-radius:12px;margin-bottom:8px;object-fit:cover}
+.tg-header-center {
+  display: flex;
+  align-items: center;
+}
 
-/* reply preview */
-.tg-reply-preview{background:rgba(255,255,255,0.02);padding:6px 8px;border-left:3px solid rgba(255,255,255,0.04);border-radius:8px;margin-bottom:8px;font-size:12px;color:var(--tg-muted);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:pointer}
+.tg-header-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
 
-/* input */
-.tg-input-wrapper{padding:8px 12px;position:sticky;bottom:8px;z-index:60;display:flex;justify-content:center}
-.tg-input-bar{display:flex;align-items:center;gap:8px;width:100%;max-width:640px;height:var(--tg-input-height);border-radius:var(--tg-input-radius);background:rgba(23,33,43,0.55);padding:0 12px;box-shadow:0 10px 30px rgba(0,0,0,0.25)}
-.tg-input-bar.glass{backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.03)}
-.tg-comment-input{flex:1;height:100%;Border-radius:var(--tg-input-radius);border:none;padding:0 12px;background:transparent;color:var(--tg-text);font-size:14px;outline:none}
-.tg-send-btn{width:36px;height:36px;border-radius:50%;background:var(--tg-accent);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.tg-icon-btn{background:none;border:none;padding:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tg-muted)}
+.tg-header-info {
+  display: flex;
+  flex-direction: column;
+}
 
-/* jump indicator */
-#tg-jump-indicator{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--tg-input-height) + 64px);background:var(--tg-accent);color:#fff;padding:6px 12px;border-radius:18px;font-size:13px;display:flex;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(0,0,0,.12);z-index:999}
-#tg-jump-indicator.hidden{display:none}
+.tg-title {
+  font-weight: 600;
+  font-size: 14px;
+}
 
-/* highlight */
-.tg-highlight{outline:2px solid var(--gold);box-shadow:0 8px 24px rgba(255,209,102,0.06);animation:highlightFade 2600ms ease forwards}
-@keyframes highlightFade{0%{opacity:1}80%{opacity:1}100%{opacity:0.2;box-shadow:none;outline:0}}
+.tg-meta {
+  font-size: 12px;
+  color: #b0b8c1;
+}
 
-/* join sticker (Telegram-style) */
-.tg-join-sticker{display:flex;flex-direction:column;align-items:center;margin:12px auto;background:rgba(23,33,43,0.64);backdrop-filter:blur(8px);border-radius:14px;padding:10px 12px;max-width:86%;box-shadow:0 8px 30px rgba(0,0,0,0.28);color:var(--tg-text)}
-.tg-join-sticker .join-cluster{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px;position:relative}
-.tg-join-sticker .join-cluster img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.06);box-shadow:0 6px 18px rgba(0,0,0,0.35);margin-left:-12px}
-.tg-join-sticker .join-names{font-size:13px;font-weight:600;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tg-join-sticker .join-sub{font-size:12px;opacity:.85;margin-top:6px}
+/* PIN BANNER */
+.tg-pin-banner {
+  display: flex;
+  flex-direction: column;
+  background: #232f3f;
+  padding: 10px;
+  margin: 4px 8px;
+  border-radius: 12px;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
 
-/* responsive */
-@media (max-width:520px){ .tg-join-sticker .join-cluster img{width:36px;height:36px;margin-left:-10px} .tg-join-sticker{padding:8px 10px} .tg-bubble{max-width:85%} }
+.tg-pin-banner.show {
+  opacity: 1;
+}
+
+.tg-pin-banner img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.pin-text {
+  font-weight: 500;
+  font-size: 13px;
+  color: #fff;
+}
+
+.pin-btn-container {
+  display: flex;
+  gap: 6px;
+}
+
+.pin-btn, .glass-btn {
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 12px;
+  border: none;
+  border-radius: 16px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.pin-btn {
+  background: #2d8cff;
+  color: #fff;
+}
+
+.glass-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  backdrop-filter: blur(12px);
+}
+
+/* CHAT CONTAINER */
+.tg-comments-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* BUBBLES */
+.tg-bubble {
+  display: flex;
+  align-items: flex-start;
+  max-width: 80%;
+  gap: 8px;
+}
+
+.tg-bubble.incoming {
+  flex-direction: row;
+}
+
+.tg-bubble.outgoing {
+  flex-direction: row-reverse;
+  align-self: flex-end;
+}
+
+.tg-bubble .tg-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tg-bubble .tg-content {
+  padding: 8px 12px;
+  border-radius: 18px;
+  font-size: 13px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.tg-bubble.incoming .tg-content {
+  background: #2a3b52;
+  color: #f1f1f1;
+}
+
+.tg-bubble.outgoing .tg-content {
+  background: #2d8cff;
+  color: #fff;
+}
+
+/* DATE STICKERS */
+.tg-date-sticker {
+  align-self: center;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  background: #2c3a4a;
+  color: #b0b8c1;
+}
+
+/* JOIN STICKERS */
+.tg-join-sticker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 6px 0;
+}
+
+.join-cluster {
+  display: flex;
+  position: relative;
+  gap: -12px;
+}
+
+.join-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #171f2b;
+}
+
+.join-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2d3a4f;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+}
+
+/* INPUT BAR */
+.tg-input-wrapper {
+  padding: 8px;
+  border-top: 1px solid #2c3a4a;
+  background: #171f2b;
+}
+
+.tg-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(23, 33, 43, 0.78);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 26px;
+  padding: 4px 8px;
+}
+
+.tg-comment-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #f1f1f1;
+  font-size: 14px;
+  padding: 6px 4px;
+}
+
+.tg-icon-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f1f1f1;
+}
+
+.tg-send-btn.hidden {
+  display: none;
+}
+
+/* NEW MESSAGE PILL */
+#tg-new-pill {
+  position: sticky;
+  bottom: 70px;
+  align-self: center;
+  background: #2d8cff;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 20;
+}
