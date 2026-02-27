@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Abrox – Profit Hunters Chat</title>
 
-  <link rel="stylesheet" href="widget.css" />
+  <!-- Widget CSS -->
+  <link rel="stylesheet" href="widget-fixed.css" />
 
   <script>
-    // Site configuration (edit only these values)
+    // SITE CONFIGURATION
     window.CONTACT_ADMIN_LINK = "https://t.me/ph_suppp";
     window.MEMBER_COUNT = 1284;
     window.ONLINE_COUNT = 128;
@@ -26,8 +27,8 @@
     };
 
     window.JOINER_CONFIG = {
-      minIntervalMs: 1000*60*60*6,
-      maxIntervalMs: 1000*60*60*24,
+      minIntervalMs: 1000 * 60 * 60 * 6,
+      maxIntervalMs: 1000 * 60 * 60 * 24,
       initialJoins: 3,
       welcomeMessage: "Welcome! Please use Contact Admin to verify."
     };
@@ -35,8 +36,13 @@
 </head>
 <body>
   <div id="tg-comments-app">
+
+    <!-- HEADER -->
     <header class="tg-header" role="banner">
-      <button id="tg-back" class="tg-back-btn" aria-label="Back"><i data-lucide="arrow-left"></i></button>
+      <button id="tg-back" class="tg-back-btn" aria-label="Back">
+        <i data-lucide="arrow-left"></i>
+      </button>
+
       <div class="tg-header-center">
         <img src="assets/logo.jpg" alt="Logo" class="tg-header-avatar" />
         <div class="tg-header-info">
@@ -44,43 +50,67 @@
           <div class="tg-meta" id="tg-meta-line">1,284 members, 128 online</div>
         </div>
       </div>
-      <button id="tg-options" class="tg-options-btn" aria-label="Options"><i data-lucide="more-vertical"></i></button>
+
+      <button id="tg-options" class="tg-options-btn" aria-label="Options">
+        <i data-lucide="more-vertical"></i>
+      </button>
     </header>
 
+    <!-- PIN BANNER -->
     <div id="tg-pin-banner" class="tg-pin-banner hidden" role="region" aria-live="polite"></div>
 
+    <!-- CHAT CONTAINER -->
     <main id="tg-comments-container" class="tg-comments-container" role="feed" aria-live="off"></main>
 
-    <div id="tg-jump-indicator" class="hidden" aria-hidden="true">
-      <i data-lucide="chevron-down"></i>
-      <span id="tg-jump-text">New messages</span>
-    </div>
+    <!-- NEW MESSAGE JUMP PILL -->
+    <div id="tg-new-pill" class="hidden" aria-hidden="true">⬇ New Messages</div>
 
+    <!-- INPUT BAR -->
     <div class="tg-input-wrapper" role="form" aria-label="Send a message">
       <div class="tg-input-bar glass">
-        <button id="tg-emoji-btn" class="tg-icon-btn" aria-label="Emoji"><i data-lucide="smile"></i></button>
-        <input type="text" id="tg-comment-input" class="tg-comment-input" placeholder="Message…" autocomplete="off" />
-        <button id="tg-camera-btn" class="tg-icon-btn" aria-label="Camera"><i data-lucide="camera"></i></button>
-        <button id="tg-send-btn" class="tg-send-btn hidden" aria-label="Send message"><i data-lucide="send"></i></button>
+        <button id="tg-emoji-btn" class="tg-icon-btn" aria-label="Emoji">
+          <i data-lucide="smile"></i>
+        </button>
+
+        <input
+          type="text"
+          id="tg-comment-input"
+          class="tg-comment-input"
+          placeholder="Message…"
+          autocomplete="off"
+        />
+
+        <button id="tg-camera-btn" class="tg-icon-btn" aria-label="Camera">
+          <i data-lucide="camera"></i>
+        </button>
+
+        <button id="tg-send-btn" class="tg-send-btn hidden" aria-label="Send message">
+          <i data-lucide="send"></i>
+        </button>
       </div>
     </div>
+
   </div>
 
-  <!-- icons -->
+  <!-- ICONS -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- scripts (order matters) -->
+  <!-- SCRIPTS (order is critical) -->
   <script src="identity-personas.js"></script>
   <script src="bubble-renderer.js"></script>
   <script src="joiner-simulator.js"></script>
-  <script src="realism-engine-v11.js"></script>
+  <script src="realism-engine-v11-full.js"></script>
   <script src="interactions.js"></script>
   <script src="app.js"></script>
 
   <script>
-    // guard: only call if lucide loaded
-    if (window.lucide && typeof window.lucide.createIcons === "function") {
-      window.lucide.createIcons();
+    // INITIALIZE ICONS
+    if(window.lucide?.createIcons){ window.lucide.createIcons(); }
+
+    // LOAD INITIAL MEMBER COUNTERS
+    const metaLine = document.getElementById('tg-meta-line');
+    if(metaLine){
+      metaLine.textContent = `${window.MEMBER_COUNT.toLocaleString()} members, ${window.ONLINE_COUNT.toLocaleString()} online`;
     }
   </script>
 </body>
